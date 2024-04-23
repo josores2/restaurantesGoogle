@@ -14,8 +14,6 @@ struct SettingView: View {
     //por lo que no la inicializamos con ()
     @EnvironmentObject var settingStore: SettingStore
     
-    //private var displayOrders = [ "Alfabético", "Primero favoritos", "Primero los visitados"]
-    
     @State private var selectedOrder = DisplayOrderType.alphabetical
     
     //@State private var selectedOrder = 0

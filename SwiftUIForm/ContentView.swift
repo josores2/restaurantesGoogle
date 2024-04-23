@@ -9,21 +9,15 @@ import SwiftUI
 
 struct ContentView: View {
     
-    //@State private var selectedRestaurant: Restaurant?
-    //@State private var showSettings: Bool = false
-    //@EnvironmentObject var almacen: SettingStore
-    
     @StateObject var viewModel: RestaurantViewModel
-    
+   
     var body: some View {
         NavigationView {
-            List {
+             List {
                 //Ahora llamamos a los restaurantes a través del ViewModel
-                ForEach(viewModel.restaurants.sorted(by: viewModel.almacen.displayOrder.predicate())){ restaurant in
-                
-                //ForEach(restaurants) { restaurant in
-                
-                  if viewModel.shouldShowItem(restaurant: restaurant) {
+                 ForEach(viewModel.restaurants.sorted(by:viewModel.almacen.displayOrder.predicate())){  restaurant in
+                 
+                    if viewModel.shouldShowItem(restaurant: restaurant) {
                     BasicImageRow(restaurant: restaurant)
                         .contextMenu {
                             
@@ -63,7 +57,7 @@ struct ContentView: View {
                         }
                   }
                 }
-                .onDelete { (indexSet) in
+             .onDelete { (indexSet) in
                     viewModel.restaurants.remove(atOffsets: indexSet)
                 }
             }
@@ -84,8 +78,6 @@ struct ContentView: View {
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
-    
-}
 
 /*
 struct ContentView_Previews: PreviewProvider {
@@ -107,3 +99,4 @@ struct ContentView_Previews: PreviewProvider {
 }*/
 
 
+}

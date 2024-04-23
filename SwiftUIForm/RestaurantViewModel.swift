@@ -10,27 +10,25 @@ import FirebaseFirestore
 
 class RestaurantViewModel: ObservableObject {
     
+    //var databaseReference: Firestore!
+    
     @Published var restaurants: [Restaurant] = []
     @Published var selectedRestaurant: Restaurant?
     @Published var showSettings: Bool = false
 
     @ObservedObject var almacen: SettingStore
     
-    private var dataBaseReference = Firestore.firestore().collection("Restaurantes")
+    var databaseReference = Firestore.firestore().collection("restaurantes")
     
-    //Función para agregar datos a la base de datos
-    
-    //Función para leer datos
-    
-    //Función para actualizar datos
-    
-    //Función para borrar datos
-
     init(almacen: SettingStore) {
         
         self.almacen = almacen
         
-        // Initializamos los restaurantes
+        // Verificar si la colección está vacía antes de agregar elementos
+        checkIfDatabaseIsEmpty()
+        
+        
+        
         self.restaurants = [
             Restaurant(name: "Cafe Deadend", type: "Coffee & Tea Shop", phone: "232-923423", image: "cafedeadend", priceLevel: 3),
             Restaurant(name: "Homei", type: "Cafe", phone: "348-233423", image: "homei", priceLevel: 3),
@@ -54,8 +52,132 @@ class RestaurantViewModel: ObservableObject {
             Restaurant(name: "Royal Oak", type: "British", phone: "343-988834", image: "royaloak", priceLevel: 2, isFavorite: true),
             Restaurant(name: "CASK Pub and Kitchen", type: "Thai", phone: "432-344050", image: "caskpubkitchen", priceLevel: 1)
             ]
+        
+        
     }
-
+    
+    func checkIfDatabaseIsEmpty() {
+            databaseReference.getDocuments { querySnapshot, error in
+                if let error = error {
+                    print("Error getting documents: \(error)")
+                    return
+                }
+                
+                guard let documents = querySnapshot?.documents else {
+                    print("No documents found")
+                    return
+                }
+                
+                if documents.isEmpty {
+                    // La colección está vacía, podemos agregar elementos
+                    self.addInitialRestaurants()
+                } else {
+                    // La colección no está vacía, no es necesario agregar elementos
+                    print("La colección no está vacía, no se agregarán elementos")
+                }
+            }
+        }
+        
+        func addInitialRestaurants() {
+            let initialRestaurants = [
+                Restaurant(name: "Cafe Deadend", type: "Coffee & Tea Shop", phone: "232-923423", image: "cafedeadend", priceLevel: 3),
+                Restaurant(name: "Homei", type: "Cafe", phone: "348-233423", image: "homei", priceLevel: 3),
+                Restaurant(name: "Teakha", type: "Tea House", phone: "354-243523", image: "teakha", priceLevel: 3, isFavorite: true, isCheckIn: true),
+                Restaurant(name: "Cafe loisl", type: "Austrian / Casual Drink", phone: "453-333423", image: "cafeloisl", priceLevel: 2, isFavorite: true, isCheckIn: true)
+                // Agrega más restaurantes según sea necesario
+            ]
+            
+            for restaurant in initialRestaurants {
+                self.addRestaurant(restaurant: restaurant)
+            }
+        }
+        
+    
+    func fetchRestaurants() {
+            databaseReference.addSnapshotListener { querySnapshot, error in
+                guard let documents = querySnapshot?.documents else {
+                    print("Error fetching documents: \(error!)")
+                    return
+                }
+                
+                self.restaurants = documents.compactMap { document in
+                    do {
+                        let restaurant = try document.data(as: Restaurant.self)
+                        return restaurant
+                    } catch {
+                        print("Error decoding restaurant: \(error)")
+                        return nil
+                    }
+                }
+            }
+        }
+    
+    func addRestaurant(restaurant: Restaurant) {
+            do {
+                _ = try databaseReference.addDocument(from: restaurant)
+            } catch {
+                print("Error adding restaurant: \(error)")
+            }
+        }
+        
+    func deleteRestaurant(restaurant: Restaurant) {
+            if let restaurantID = restaurant.id {
+                databaseReference.document(restaurantID).delete { error in
+                    if let error = error {
+                        print("Error removing document: \(error)")
+                    }
+                }
+            }
+        }
+    
+    func toggleCheckIn(restaurant: Restaurant) {
+            if let restaurantID = restaurant.id {
+                databaseReference.document(restaurantID).updateData(["isCheckIn": !restaurant.isCheckIn])
+            }
+        }
+    
+    func toggleFavorite(restaurant: Restaurant) {
+            if let restaurantID = restaurant.id {
+                databaseReference.document(restaurantID).updateData(["isFavorite": !restaurant.isFavorite])
+            }
+        }
+    
+    func delete(restaurant: Restaurant) {
+        if let index = self.restaurants.firstIndex(where: { $0.id == restaurant.id }) {
+            self.restaurants.remove(at: index)
+        }
+    }
+    
+        /*
+    func toggleFavorite(restaurant: Restaurant) {
+        if let index = self.restaurants.firstIndex(where: { $0.id == restaurant.id }) {
+            self.restaurants[index].isFavorite.toggle()
+        }
+    }*/
+    /*
+    func toggleFavorite(restaurant: Restaurant) {
+            if let restaurantID = restaurant.id {
+                databaseReference.document(restaurantID).updateData(["isFavorite": !restaurant.isFavorite])
+            }
+        }
+        
+    func toggleCheckIn(restaurant: Restaurant) {
+            if let restaurantID = restaurant.id {
+                databaseReference.document(restaurantID).updateData(["isCheckIn": !restaurant.isCheckIn])
+            }
+        }
+    
+    func delete(restaurant: Restaurant) {
+        if let index = self.restaurants.firstIndex(where: { $0.id == restaurant.id }) {
+            self.deleteRestaurant(restaurant: self.restaurants[index])
+        }
+    }
+    
+        //self.almacen = almacen
+        
+        // Initializamos los restaurantes
+        
+/*
     func delete(restaurant: Restaurant) {
         if let index = self.restaurants.firstIndex(where: { $0.id == restaurant.id }) {
             self.restaurants.remove(at: index)
@@ -72,9 +194,13 @@ class RestaurantViewModel: ObservableObject {
         if let index = self.restaurants.firstIndex(where: { $0.id == restaurant.id }) {
             self.restaurants[index].isCheckIn.toggle()
         }
-    }
+    }*/*/
 
     func shouldShowItem(restaurant: Restaurant) -> Bool {
         return (!self.almacen.showCheckInOnly || restaurant.isCheckIn) && (restaurant.priceLevel <= self.almacen.maxPriceLevel)
     }
+         
+    
 }
+
+

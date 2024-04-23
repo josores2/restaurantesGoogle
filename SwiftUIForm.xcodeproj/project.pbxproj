@@ -10,10 +10,11 @@
 		8201B01C2BCD7FEA00DBF57E /* SettingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8201B01B2BCD7FEA00DBF57E /* SettingStore.swift */; };
 		8201B01E2BCEF97300DBF57E /* RestaurantViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8201B01D2BCEF97300DBF57E /* RestaurantViewModel.swift */; };
 		8201B0202BCEFBC800DBF57E /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8201B01F2BCEFBC800DBF57E /* Model.swift */; };
-		821FAAB52BD1A269000549E0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 821FAAB42BD1A269000549E0 /* GoogleService-Info.plist */; };
-		821FAAB82BD27520000549E0 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 821FAAB72BD27520000549E0 /* FirebaseAuth */; };
-		821FAABA2BD27520000549E0 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 821FAAB92BD27520000549E0 /* FirebaseFirestore */; };
-		821FAABC2BD27520000549E0 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 821FAABB2BD27520000549E0 /* FirebaseFirestoreSwift */; };
+		8289E16C2BD7BC8A00AA6C9E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8289E16B2BD7BC8A00AA6C9E /* GoogleService-Info.plist */; };
+		8289E1762BD7BEC600AA6C9E /* SWiftUIFormMVVM in Resources */ = {isa = PBXBuildFile; fileRef = 8289E1752BD7BEC600AA6C9E /* SWiftUIFormMVVM */; };
+		8289E1792BD7BFEB00AA6C9E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8289E1782BD7BFEB00AA6C9E /* FirebaseAuth */; };
+		8289E17B2BD7BFEB00AA6C9E /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 8289E17A2BD7BFEB00AA6C9E /* FirebaseFirestore */; };
+		8289E17D2BD7BFEB00AA6C9E /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8289E17C2BD7BFEB00AA6C9E /* FirebaseFirestoreSwift */; };
 		F4741DD124ED67BE00F16863 /* SwiftUIFormApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4741DD024ED67BE00F16863 /* SwiftUIFormApp.swift */; };
 		F4741DD324ED67BE00F16863 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4741DD224ED67BE00F16863 /* ContentView.swift */; };
 		F4741DD524ED67C100F16863 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4741DD424ED67C100F16863 /* Assets.xcassets */; };
@@ -25,7 +26,8 @@
 		8201B01B2BCD7FEA00DBF57E /* SettingStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingStore.swift; sourceTree = "<group>"; };
 		8201B01D2BCEF97300DBF57E /* RestaurantViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantViewModel.swift; sourceTree = "<group>"; };
 		8201B01F2BCEFBC800DBF57E /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
-		821FAAB42BD1A269000549E0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8289E16B2BD7BC8A00AA6C9E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8289E1752BD7BEC600AA6C9E /* SWiftUIFormMVVM */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SWiftUIFormMVVM; sourceTree = "<group>"; };
 		F4741DCD24ED67BE00F16863 /* SwiftUIForm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftUIForm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4741DD024ED67BE00F16863 /* SwiftUIFormApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIFormApp.swift; sourceTree = "<group>"; };
 		F4741DD224ED67BE00F16863 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -40,9 +42,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				821FAAB82BD27520000549E0 /* FirebaseAuth in Frameworks */,
-				821FAABA2BD27520000549E0 /* FirebaseFirestore in Frameworks */,
-				821FAABC2BD27520000549E0 /* FirebaseFirestoreSwift in Frameworks */,
+				8289E1792BD7BFEB00AA6C9E /* FirebaseAuth in Frameworks */,
+				8289E17B2BD7BFEB00AA6C9E /* FirebaseFirestore in Frameworks */,
+				8289E17D2BD7BFEB00AA6C9E /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,6 +54,8 @@
 		F4741DC424ED67BE00F16863 = {
 			isa = PBXGroup;
 			children = (
+				8289E1752BD7BEC600AA6C9E /* SWiftUIFormMVVM */,
+				8289E16B2BD7BC8A00AA6C9E /* GoogleService-Info.plist */,
 				F4741DCF24ED67BE00F16863 /* SwiftUIForm */,
 				F4741DCE24ED67BE00F16863 /* Products */,
 			);
@@ -68,7 +72,6 @@
 		F4741DCF24ED67BE00F16863 /* SwiftUIForm */ = {
 			isa = PBXGroup;
 			children = (
-				821FAAB42BD1A269000549E0 /* GoogleService-Info.plist */,
 				F4741DD024ED67BE00F16863 /* SwiftUIFormApp.swift */,
 				F4741DD224ED67BE00F16863 /* ContentView.swift */,
 				F4741DD424ED67C100F16863 /* Assets.xcassets */,
@@ -107,9 +110,9 @@
 			);
 			name = SwiftUIForm;
 			packageProductDependencies = (
-				821FAAB72BD27520000549E0 /* FirebaseAuth */,
-				821FAAB92BD27520000549E0 /* FirebaseFirestore */,
-				821FAABB2BD27520000549E0 /* FirebaseFirestoreSwift */,
+				8289E1782BD7BFEB00AA6C9E /* FirebaseAuth */,
+				8289E17A2BD7BFEB00AA6C9E /* FirebaseFirestore */,
+				8289E17C2BD7BFEB00AA6C9E /* FirebaseFirestoreSwift */,
 			);
 			productName = SwiftUIForm;
 			productReference = F4741DCD24ED67BE00F16863 /* SwiftUIForm.app */;
@@ -139,7 +142,7 @@
 			);
 			mainGroup = F4741DC424ED67BE00F16863;
 			packageReferences = (
-				821FAAB62BD27520000549E0 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				8289E1772BD7BFEB00AA6C9E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = F4741DCE24ED67BE00F16863 /* Products */;
 			projectDirPath = "";
@@ -155,9 +158,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8289E1762BD7BEC600AA6C9E /* SWiftUIFormMVVM in Resources */,
 				F4741DD824ED67C100F16863 /* Preview Assets.xcassets in Resources */,
 				F4741DD524ED67C100F16863 /* Assets.xcassets in Resources */,
-				821FAAB52BD1A269000549E0 /* GoogleService-Info.plist in Resources */,
+				8289E16C2BD7BC8A00AA6C9E /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,6 +307,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"SwiftUIForm/Preview Content\"";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = SwiftUIForm/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -310,7 +315,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.appcoda.SwiftUIForm;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Jose.SwiftUIForm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -324,6 +329,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"SwiftUIForm/Preview Content\"";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = SwiftUIForm/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -331,7 +337,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.appcoda.SwiftUIForm;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Jose.SwiftUIForm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -362,30 +368,31 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		821FAAB62BD27520000549E0 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		8289E1772BD7BFEB00AA6C9E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
-				kind = upToNextMajorVersion;
+				kind = versionRange;
+				maximumVersion = 10.0.0;
 				minimumVersion = 9.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		821FAAB72BD27520000549E0 /* FirebaseAuth */ = {
+		8289E1782BD7BFEB00AA6C9E /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 821FAAB62BD27520000549E0 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 8289E1772BD7BFEB00AA6C9E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
 		};
-		821FAAB92BD27520000549E0 /* FirebaseFirestore */ = {
+		8289E17A2BD7BFEB00AA6C9E /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 821FAAB62BD27520000549E0 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 8289E1772BD7BFEB00AA6C9E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
 		};
-		821FAABB2BD27520000549E0 /* FirebaseFirestoreSwift */ = {
+		8289E17C2BD7BFEB00AA6C9E /* FirebaseFirestoreSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 821FAAB62BD27520000549E0 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 8289E1772BD7BFEB00AA6C9E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestoreSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
