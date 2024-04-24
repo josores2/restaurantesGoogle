@@ -23,7 +23,7 @@ struct ContentView: View {
                             
                             Button(action: {
                                 // mark the selected restaurant as check-in
-                                viewModel.toggleCheckIn(restaurant: restaurant)
+                                viewModel.toggleCheckIn(item:restaurant)
                                 viewModel.fetchRestaurants()
                             }) {
                                 HStack {

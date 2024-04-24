@@ -17,7 +17,7 @@ class RestaurantViewModel: ObservableObject {
     @Published var showSettings: Bool = false
     
     @Published var restaurantsDB: [Restaurant] = []
-    private var db = Firestore.firestore()
+    //private var db = Firestore.firestore()
 
     @ObservedObject var almacen: SettingStore
     
@@ -84,31 +84,24 @@ class RestaurantViewModel: ObservableObject {
         }
 
         func fetchRestaurants() {
-            
             databaseReference.getDocuments { querySnapshot, error in
                 if let error = error {
-                    //Contemplo error de conexión
-                    print("ESTOY EN FETCH: Error getting documents: \(error)")
+                    /*Contemplo error de conexión*/print(error)
                     return
                 }
             //Si hay restaurantes en Firebase, los guardo en documents, sino print a consola
                 guard let documents = querySnapshot?.documents else {
-                    print("ESTOY EN FETCH: No documents found")
                     return
                 }
-                
                 if documents.isEmpty {
                     // La colección está vacía
-                    print("ESTOY EN FETCH: La colección está vacía")
                 } else {
                     // La colección no está vacía, asignamos al array restaurantsDB
                     self.restaurantsDB = documents.compactMap { document in
                         do {
                             let restaurant = try document.data(as: Restaurant.self)
-                            print("ESTOY EN FETCH:restaurant: \(restaurant)")
                             return restaurant
                         }catch {
-                            print("Contemplo error del Do: \(error)")
                             return nil
                         }
                 }
@@ -125,6 +118,7 @@ class RestaurantViewModel: ObservableObject {
         }
         
     func deleteRestaurant(restaurant: Restaurant) {
+        //Manejamos los nulos con if let
             if let restaurantID = restaurant.id {
                 databaseReference.document(restaurantID).delete { error in
                     if let error = error {
@@ -134,13 +128,15 @@ class RestaurantViewModel: ObservableObject {
             }
         }
     
-    func toggleCheckIn(restaurant: Restaurant) {
+    func toggleCheckIn(item restaurant: Restaurant) {
+        //Manejamos los nulos con if let
             if let restaurantID = restaurant.id {
                 databaseReference.document(restaurantID).updateData(["isCheckIn": !restaurant.isCheckIn])
             }
         }
     
     func toggleFavorite(restaurant: Restaurant) {
+        //Manejamos los nulos con if let
             if let restaurantID = restaurant.id {
                 databaseReference.document(restaurantID).updateData(["isFavorite": !restaurant.isFavorite])
             }
@@ -151,54 +147,6 @@ class RestaurantViewModel: ObservableObject {
             self.restaurants.remove(at: index)
         }
     }
-    
-        /*
-    func toggleFavorite(restaurant: Restaurant) {
-        if let index = self.restaurants.firstIndex(where: { $0.id == restaurant.id }) {
-            self.restaurants[index].isFavorite.toggle()
-        }
-    }*/
-    /*
-    func toggleFavorite(restaurant: Restaurant) {
-            if let restaurantID = restaurant.id {
-                databaseReference.document(restaurantID).updateData(["isFavorite": !restaurant.isFavorite])
-            }
-        }
-        
-    func toggleCheckIn(restaurant: Restaurant) {
-            if let restaurantID = restaurant.id {
-                databaseReference.document(restaurantID).updateData(["isCheckIn": !restaurant.isCheckIn])
-            }
-        }
-    
-    func delete(restaurant: Restaurant) {
-        if let index = self.restaurants.firstIndex(where: { $0.id == restaurant.id }) {
-            self.deleteRestaurant(restaurant: self.restaurants[index])
-        }
-    }
-    
-        //self.almacen = almacen
-        
-        // Initializamos los restaurantes
-        
-/*
-    func delete(restaurant: Restaurant) {
-        if let index = self.restaurants.firstIndex(where: { $0.id == restaurant.id }) {
-            self.restaurants.remove(at: index)
-        }
-    }
-
-    func toggleFavorite(restaurant: Restaurant) {
-        if let index = self.restaurants.firstIndex(where: { $0.id == restaurant.id }) {
-            self.restaurants[index].isFavorite.toggle()
-        }
-    }
-
-    func toggleCheckIn(restaurant: Restaurant) {
-        if let index = self.restaurants.firstIndex(where: { $0.id == restaurant.id }) {
-            self.restaurants[index].isCheckIn.toggle()
-        }
-    }*/*/
 
     func shouldShowItem(restaurant: Restaurant) -> Bool {
         return (!self.almacen.showCheckInOnly || restaurant.isCheckIn) && (restaurant.priceLevel <= self.almacen.maxPriceLevel)
