@@ -15,7 +15,7 @@ struct ContentView: View {
         NavigationView {
              List {
                 //Ahora llamamos a los restaurantes a través del ViewModel
-                 ForEach(viewModel.restaurants.sorted(by:viewModel.almacen.displayOrder.predicate())){  restaurant in
+                 ForEach(viewModel.restaurantsDB.sorted(by:viewModel.almacen.displayOrder.predicate())){  restaurant in
                  
                     if viewModel.shouldShowItem(restaurant: restaurant) {
                     BasicImageRow(restaurant: restaurant)
@@ -24,6 +24,7 @@ struct ContentView: View {
                             Button(action: {
                                 // mark the selected restaurant as check-in
                                 viewModel.toggleCheckIn(restaurant: restaurant)
+                                viewModel.fetchRestaurants()
                             }) {
                                 HStack {
                                     Text("Check-in")
@@ -34,6 +35,7 @@ struct ContentView: View {
                             Button(action: {
                                 // delete the selected restaurant
                                 viewModel.delete(restaurant: restaurant)
+                                viewModel.fetchRestaurants()
                             }) {
                                 HStack {
                                     Text("Delete")
@@ -44,6 +46,7 @@ struct ContentView: View {
                             Button(action: {
                                 // mark the selected restaurant as favorite
                                 viewModel.toggleFavorite(restaurant: restaurant)
+                                viewModel.fetchRestaurants()
                                 
                             }) {
                                 HStack {
@@ -52,29 +55,42 @@ struct ContentView: View {
                                 }
                             }
                         }
-                        .onTapGesture {
+                       .onTapGesture {
                             viewModel.selectedRestaurant = restaurant
                         }
                   }
                 }
              .onDelete { (indexSet) in
-                    viewModel.restaurants.remove(atOffsets: indexSet)
+                    viewModel.restaurantsDB.remove(atOffsets: indexSet)
                 }
             }
             
             .navigationBarTitle("Restaurant")
             .navigationBarItems(trailing:
-
-                Button(action: {
-                    viewModel.showSettings = true
-                }, label: {
-                    Image(systemName: "gear").font(.title)
-                        .foregroundColor(.black)
-                })
+                HStack {
+                    Button(action: {
+                        viewModel.showSettings = true
+                    }) {
+                        Image(systemName: "gear")
+                            .font(.title)
+                            .foregroundColor(.black)
+                    }
+                    
+                    Button(action: {
+                        viewModel.fetchRestaurants() // Recarga restaurantes de firebase
+                    }) {
+                        Image(systemName: "arrow.clockwise.circle")
+                            .font(.title)
+                            .foregroundColor(.black)
+                    }
+                }
             )
             .sheet(isPresented: $viewModel.showSettings) {
                 SettingView().environmentObject(viewModel.almacen)
             }
+        }
+        .onAppear {
+                    viewModel.fetchRestaurants() //Carga inicial de restaurantes de Firebase
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }

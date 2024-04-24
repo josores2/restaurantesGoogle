@@ -6,15 +6,18 @@
 //
 
 import SwiftUI
+import Foundation
+import Combine
 import FirebaseFirestore
 
 class RestaurantViewModel: ObservableObject {
     
-    //var databaseReference: Firestore!
-    
     @Published var restaurants: [Restaurant] = []
     @Published var selectedRestaurant: Restaurant?
     @Published var showSettings: Bool = false
+    
+    @Published var restaurantsDB: [Restaurant] = []
+    private var db = Firestore.firestore()
 
     @ObservedObject var almacen: SettingStore
     
@@ -26,8 +29,6 @@ class RestaurantViewModel: ObservableObject {
         
         // Verificar si la colección está vacía antes de agregar elementos
         checkIfDatabaseIsEmpty()
-        
-        
         
         self.restaurants = [
             Restaurant(name: "Cafe Deadend", type: "Coffee & Tea Shop", phone: "232-923423", image: "cafedeadend", priceLevel: 3),
@@ -52,8 +53,6 @@ class RestaurantViewModel: ObservableObject {
             Restaurant(name: "Royal Oak", type: "British", phone: "343-988834", image: "royaloak", priceLevel: 2, isFavorite: true),
             Restaurant(name: "CASK Pub and Kitchen", type: "Thai", phone: "432-344050", image: "caskpubkitchen", priceLevel: 1)
             ]
-        
-        
     }
     
     func checkIfDatabaseIsEmpty() {
@@ -62,7 +61,7 @@ class RestaurantViewModel: ObservableObject {
                     print("Error getting documents: \(error)")
                     return
                 }
-                
+            
                 guard let documents = querySnapshot?.documents else {
                     print("No documents found")
                     return
@@ -79,36 +78,41 @@ class RestaurantViewModel: ObservableObject {
         }
         
         func addInitialRestaurants() {
-            let initialRestaurants = [
-                Restaurant(name: "Cafe Deadend", type: "Coffee & Tea Shop", phone: "232-923423", image: "cafedeadend", priceLevel: 3),
-                Restaurant(name: "Homei", type: "Cafe", phone: "348-233423", image: "homei", priceLevel: 3),
-                Restaurant(name: "Teakha", type: "Tea House", phone: "354-243523", image: "teakha", priceLevel: 3, isFavorite: true, isCheckIn: true),
-                Restaurant(name: "Cafe loisl", type: "Austrian / Casual Drink", phone: "453-333423", image: "cafeloisl", priceLevel: 2, isFavorite: true, isCheckIn: true)
-                // Agrega más restaurantes según sea necesario
-            ]
-            
-            for restaurant in initialRestaurants {
+            for restaurant in restaurants {
                 self.addRestaurant(restaurant: restaurant)
             }
         }
-        
-    
-    func fetchRestaurants() {
-            databaseReference.addSnapshotListener { querySnapshot, error in
+
+        func fetchRestaurants() {
+            
+            databaseReference.getDocuments { querySnapshot, error in
+                if let error = error {
+                    //Contemplo error de conexión
+                    print("ESTOY EN FETCH: Error getting documents: \(error)")
+                    return
+                }
+            //Si hay restaurantes en Firebase, los guardo en documents, sino print a consola
                 guard let documents = querySnapshot?.documents else {
-                    print("Error fetching documents: \(error!)")
+                    print("ESTOY EN FETCH: No documents found")
                     return
                 }
                 
-                self.restaurants = documents.compactMap { document in
-                    do {
-                        let restaurant = try document.data(as: Restaurant.self)
-                        return restaurant
-                    } catch {
-                        print("Error decoding restaurant: \(error)")
-                        return nil
-                    }
+                if documents.isEmpty {
+                    // La colección está vacía
+                    print("ESTOY EN FETCH: La colección está vacía")
+                } else {
+                    // La colección no está vacía, asignamos al array restaurantsDB
+                    self.restaurantsDB = documents.compactMap { document in
+                        do {
+                            let restaurant = try document.data(as: Restaurant.self)
+                            print("ESTOY EN FETCH:restaurant: \(restaurant)")
+                            return restaurant
+                        }catch {
+                            print("Contemplo error del Do: \(error)")
+                            return nil
+                        }
                 }
+            }
             }
         }
     

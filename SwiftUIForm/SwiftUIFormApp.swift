@@ -12,7 +12,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     
     func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-    FirebaseApp.configure()
+    //FirebaseApp.configure()
     return true
   }
 }
@@ -20,9 +20,11 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct SwiftUIFormApp: App {
     
+    var dB:Void = FirebaseApp.configure()
     
     // Registramos antes que nada AppDelegate, para que primero se llame a FirebaseApp.configure()
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    
     
     var almacenInicial = SettingStore()
     
