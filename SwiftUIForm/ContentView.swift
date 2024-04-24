@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
     @StateObject var viewModel: RestaurantViewModel
+    @EnvironmentObject private var authModel: AuthViewModel
    
     var body: some View {
         NavigationView {

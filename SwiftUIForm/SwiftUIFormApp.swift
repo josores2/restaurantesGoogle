@@ -33,7 +33,8 @@ struct SwiftUIFormApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView(viewModel: viewModel).environmentObject(almacenInicial)
+            HolderView().environmentObject(AuthViewModel())
+            //ContentView(viewModel: viewModel).environmentObject(almacenInicial)
         }
     }
 }
