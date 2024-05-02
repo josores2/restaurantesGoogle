@@ -21,7 +21,7 @@ struct HolderView: View {
                 ContentView(viewModel: viewModel).environmentObject(almacenInicial)
             }
         }
-            .onAppear {
+        .onAppear {
             authModel.listenToAuthState()
         }
     }

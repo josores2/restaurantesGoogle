@@ -10,7 +10,8 @@ import SwiftUI
 struct ContentView: View {
     
     @StateObject var viewModel: RestaurantViewModel
-    @EnvironmentObject private var authModel: AuthViewModel
+   // @EnvironmentObject private var authModel: AuthViewModel
+    @ObservedObject private var authModel = AuthViewModel()
    
     var body: some View {
         NavigationView {
@@ -84,6 +85,11 @@ struct ContentView: View {
                             .font(.title)
                             .foregroundColor(.black)
                     }
+                    Button (action: {
+                        authModel.signOut()
+                    }) {
+                        Text("Logout")
+                    }
                 }
             )
             .sheet(isPresented: $viewModel.showSettings) {
@@ -99,7 +105,7 @@ struct ContentView: View {
 /*
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environmentObject(SettingStore())
+        ContentView(viewModel:<#RestaurantViewModel#>).environmentObject(SettingStore())
     }
 }*/
 /*

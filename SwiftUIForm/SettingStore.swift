@@ -40,14 +40,12 @@ enum DisplayOrderType: Int, CaseIterable {
 }
 
 final class SettingStore: ObservableObject {
-    
     init() {
         UserDefaults.standard.register(defaults: [
             "view.preferences.showCheckInOnly" : false,
             "view.preferences.displayOrder" : 0,
             "view.preferences.maxPriceLevel" : 5
         ])
-        
     }
     
     @Published var showCheckInOnly: Bool = UserDefaults.standard.bool(forKey: "view.preferenc es.showCheckInOnly") {
